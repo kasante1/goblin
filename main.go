@@ -36,6 +36,8 @@ func main() {
 			if err != nil {
 				fmt.Println(err)
 			}
+
+			fmt.Println("project directory created here :", project_name)
 		}
 
 	} else {
@@ -53,8 +55,6 @@ func main() {
 		// create project directory and project name
 		project_directory := filepath.Join(path, project_name)
 
-		fmt.Println(project_directory)
-
 		// if err := os.Mkdir("a", os.ModePerm); err != nil {
 		//     log.Fatal(err)
 		// }
@@ -65,6 +65,8 @@ func main() {
 			if err != nil {
 				fmt.Println(err)
 			}
+
+			fmt.Println("project directory created here : ", project_directory)
 		}
 	}
 
