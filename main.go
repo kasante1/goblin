@@ -31,16 +31,10 @@ func main() {
 	}
 
 	if fileOrDirectory {
-		if _, err := os.Stat(project_name); errors.Is(err, os.ErrNotExist) {
-			err := os.Mkdir(project_name, os.ModePerm)
-			if err != nil {
-				fmt.Println(err)
-			}
+		dir_status := AlreadyExist(project_name)
 
-			fmt.Println("project directory created here :", project_name)
-
-		} else {
-			fmt.Println(project_name, " already exits! dir")
+		if dir_status != nil {
+			fmt.Println(dir_status)
 		}
 
 	} else {
@@ -63,18 +57,13 @@ func main() {
 		// }
 
 		// check if the directory does not exits
-		if _, err := os.Stat(project_directory); errors.Is(err, os.ErrNotExist) {
-			err := os.Mkdir(project_directory, os.ModePerm)
-			if err != nil {
-				fmt.Println(err)
-			}
 
-			fmt.Println("project directory created here : ", project_directory)
+		file_status := AlreadyExist(project_directory)
 
-		} else {
-
-			fmt.Println(project_directory, " already exits file")
+		if file_status != nil {
+			fmt.Println(file_status)
 		}
+
 	}
 
 }
@@ -94,6 +83,22 @@ func IsArgumentDirectory(argument string) (bool, error) {
 // is the argument provided an existing directory
 // project name
 
-func AlreadyExist(argument string) (bool, error) {
-	return true, nil
+func AlreadyExist(cli_argument string) error {
+	if _, err := os.Stat(cli_argument); errors.Is(err, os.ErrNotExist) {
+		err := os.Mkdir(cli_argument, os.ModePerm)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println("project directory created here :", cli_argument)
+
+		return nil
+
+	} else {
+		//fmt.Println(cli_argument, " already exits!")
+
+		error_message := cli_argument + " already exits!"
+
+		return errors.New(error_message)
+	}
 }
