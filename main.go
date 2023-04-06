@@ -38,9 +38,10 @@ func main() {
 			}
 
 			fmt.Println("project directory created here :", project_name)
-		}
 
-		fmt.Println(project_name, " already exits!")
+		} else {
+			fmt.Println(project_name, " already exits! dir")
+		}
 
 	} else {
 		// get current directory or where to save
@@ -69,8 +70,11 @@ func main() {
 			}
 
 			fmt.Println("project directory created here : ", project_directory)
+
+		} else {
+
+			fmt.Println(project_directory, " already exits file")
 		}
-		fmt.Println(project_directory, " already exits")
 	}
 
 }
