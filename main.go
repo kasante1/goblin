@@ -23,7 +23,6 @@ func main() {
 	project_name := arguments[1]
 
 	// checked if the argument supplied is a directory
-
 	fileOrDirectory, err := IsArgumentDirectory(project_name)
 
 	if err != nil {
@@ -52,12 +51,7 @@ func main() {
 		// create project directory and project name
 		project_directory := filepath.Join(path, project_name)
 
-		// if err := os.Mkdir("a", os.ModePerm); err != nil {
-		//     log.Fatal(err)
-		// }
-
 		// check if the directory does not exits
-
 		file_status := AlreadyExist(project_directory)
 
 		if file_status != nil {
