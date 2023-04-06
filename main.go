@@ -40,6 +40,8 @@ func main() {
 			fmt.Println("project directory created here :", project_name)
 		}
 
+		fmt.Println(project_name, " already exits!")
+
 	} else {
 		// get current directory or where to save
 		// project
@@ -68,6 +70,7 @@ func main() {
 
 			fmt.Println("project directory created here : ", project_directory)
 		}
+		fmt.Println(project_directory, " already exits")
 	}
 
 }
@@ -82,4 +85,11 @@ func IsArgumentDirectory(argument string) (bool, error) {
 	}
 	return false, errors.New("a string not a directory")
 
+}
+
+// is the argument provided an existing directory
+// project name
+
+func AlreadyExist(argument string) (bool, error) {
+	return true, nil
 }
