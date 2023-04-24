@@ -31,8 +31,8 @@ func NewProjectDirectry(cli_argument string) {
 		fmt.Println(file_status)
 	}
 	// create main.go file
-	dir_contents.CreateProjectFiles(project_directory, "main.go", dir_contents.MainFileContents)
-	dir_contents.CreateProjectFiles(project_directory, "go.mod", dir_contents.GoModFileContent)
+	dir_contents.CreateProjectFiles(project_directory, "main.go", dir_contents.MainFileContents())
+	dir_contents.CreateProjectFiles(project_directory, "go.mod", dir_contents.GoModFileContent(cli_argument))
 }
 
 // is the provided cli_argument a string

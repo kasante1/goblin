@@ -5,13 +5,16 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
+	"strings"
 )
 
 // file contents
 
 //main file
 
-var MainFileContents string = `package main
+func MainFileContents() string {
+	var mainFileContents string = `package main
 
 import "fmt"
 
@@ -20,10 +23,36 @@ func main(){
 }
 
 `
+	return mainFileContents
+}
 
-var GoModFileContent string = `module newproject
-go version 1.19.0
-`
+// modify go version output
+// from go1.19.2 to go 1.19.2
+func modifyVersionOutput() string {
+
+	go_version := runtime.Version()
+
+	go_template := strings.NewReplacer("go", "go ")
+
+	version_output := go_template.Replace(go_version)
+
+	return version_output
+}
+
+// adapter for the write to file function
+func GoModFileContent(projectName string) string {
+
+	var go_version = modifyVersionOutput()
+
+	var templateGoModFile = "module name\n\nversion"
+
+	var replace_template = strings.NewReplacer("name", projectName, "version", string(go_version))
+
+	var GoModFileContent = replace_template.Replace(templateGoModFile)
+
+	return GoModFileContent
+
+}
 
 // write files into the directories created
 
