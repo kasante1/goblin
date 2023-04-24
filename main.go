@@ -8,6 +8,7 @@ import (
 
 func main() {
 	fmt.Println("Goblin!\n Usage: -bin|-lib <cli_project_argument>")
+	fmt.Println("")
 
 	if len(os.Args) == 1 {
 		fmt.Println("Enter a project name.")
@@ -25,7 +26,6 @@ func main() {
 
 	// if cli is a directory notify user or
 	// create project in the existing directory
-
 	if fileOrDirectory {
 		var dir_status error = cli_args.AlreadyExist(cli_project_argument)
 
@@ -37,7 +37,6 @@ func main() {
 		// if cli_project_argument is not a directory
 		// create new directory in CWD
 		cli_args.NewProjectDirectry(cli_project_argument)
-
 	}
 
 }

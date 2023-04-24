@@ -5,14 +5,15 @@ import (
 	"os"
 	//"log"
 	"errors"
+	"goblin/dir_contents"
 	"path/filepath"
 	"strings"
 )
 
 // if cli_argument is a non exiting directory
 // get CWD and create project there
-
 func NewProjectDirectry(cli_argument string) {
+	fmt.Println(cli_argument)
 
 	path, err := os.Getwd()
 
@@ -20,7 +21,7 @@ func NewProjectDirectry(cli_argument string) {
 		fmt.Println(err)
 	}
 
-	// create project directory and project name
+	// join CWD and project name to get project_directory
 	project_directory := filepath.Join(path, cli_argument)
 
 	// check if the directory does not exits
@@ -29,7 +30,9 @@ func NewProjectDirectry(cli_argument string) {
 	if file_status != nil {
 		fmt.Println(file_status)
 	}
-
+	// create main.go file
+	dir_contents.CreateProjectFiles(project_directory, "main.go", dir_contents.MainFileContents)
+	dir_contents.CreateProjectFiles(project_directory, "go.mod", dir_contents.GoModFileContent)
 }
 
 // is the provided cli_argument a string

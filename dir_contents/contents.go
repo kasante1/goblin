@@ -3,9 +3,27 @@ package dir_contents
 import (
 	"errors"
 	"fmt"
-	"log"
 	"os"
+	"path/filepath"
 )
+
+// file contents
+
+//main file
+
+var MainFileContents string = `package main
+
+import "fmt"
+
+func main(){
+  fmt.Println("Hello world!")
+}
+
+`
+
+var GoModFileContent string = `module newproject
+go version 1.19.0
+`
 
 // write files into the directories created
 
@@ -21,27 +39,35 @@ import (
 
 // folder package file
 
-func Create_project_files(SubDirectories, fileName string) {
-	_, err := os.Stat(SubDirectories)
+// create project files
+func CreateProjectFiles(SubDirectories, fileName, file_contents string) {
+	// file directory
+	file_path := filepath.Join(SubDirectories, fileName)
 
+	// check if file exist or otherwise
+	_, err := os.Stat(file_path)
+
+	// if file does not exits, create file.
 	if errors.Is(err, os.ErrNotExist) {
-		fmt.Println("file does not exit")
+		// write content to files
+		WriteProjectFiles(file_path, file_contents)
+		fmt.Println("[OK]", fileName, "created succesfully")
 	} else {
-		fmt.Println("file exits")
+		fmt.Println("[X]", fileName, "failed")
 	}
 }
 
-func Write_project_files(fileName string) {
+func WriteProjectFiles(fileName, file_contents string) {
 	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 
 	defer file.Close()
 
-	if _, err := file.WriteString("some project stuff"); err != nil {
-		log.Fatal(err)
+	if _, err := file.WriteString(file_contents); err != nil {
+		fmt.Println(err)
 	}
 }
 
@@ -49,7 +75,7 @@ func Create_mod_file() {}
 
 func Create_test_files() {}
 
-func Create_main_project_file()
+func Create_main_project_file() {}
 
 // use to illustrate how packages
 // work in go lang
