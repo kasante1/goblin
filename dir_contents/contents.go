@@ -93,3 +93,4 @@ func WriteProjectFiles(fileName, file_contents string) {
 	}
 }
 
+// create file, folder, tests and test directories
