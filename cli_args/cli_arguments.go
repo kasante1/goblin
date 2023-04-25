@@ -13,7 +13,6 @@ import (
 // if cli_argument is a non exiting directory
 // get CWD and create project there
 func NewProjectDirectry(cli_argument string) {
-	fmt.Println(cli_argument)
 
 	path, err := os.Getwd()
 
@@ -92,7 +91,7 @@ func AlreadyExist(cli_argument string) error {
 
 	} else {
 
-		error_message := cli_argument + " already exits!"
+		error_message := "[X] project [" + cli_argument + "] already exits!"
 
 		return errors.New(error_message)
 	}
@@ -102,9 +101,9 @@ func AlreadyExist(cli_argument string) error {
 func CreateProjectDirectory(cli_argument string) error {
 	err := os.Mkdir(cli_argument, os.ModePerm)
 	if err != nil {
-		return errors.New("project creation failed. check directory permission")
+		return errors.New("[X] Failed! check directory permission")
 	}
 
-	fmt.Println("project directory created here :", cli_argument)
+	fmt.Println("[OK] project created here :", cli_argument)
 	return nil
 }

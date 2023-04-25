@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	fmt.Println("Goblin!\n Usage: -bin|-lib <cli_project_argument>")
+	fmt.Println("Goblin!\n Usage: -bin|-lib <project_name>")
 	fmt.Println("")
 
 	if len(os.Args) == 1 {
-		fmt.Println("Enter a project name.")
+		fmt.Println("[X] enter a project name.")
 		return
 	}
 

@@ -75,7 +75,7 @@ func CreateProjectFiles(SubDirectories, fileName, file_contents string) {
 		WriteProjectFiles(file_path, file_contents)
 		fmt.Println("[OK]", fileName, "created succesfully")
 	} else {
-		fmt.Println("[X]", fileName, "failed")
+		fmt.Println("[X]", fileName, "failed. already exits!")
 	}
 }
 
