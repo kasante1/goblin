@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"regexp"
 )
 
 // file contents
-
 //main file
 
 func MainFileContents() string {
@@ -27,16 +27,22 @@ func main(){
 }
 
 // modify go version output
-// from go1.19.2 to go 1.19.2
+// from go1.19.2 to go 1.19
 func modifyVersionOutput() string {
 
 	go_version := runtime.Version()
+	
+	//space between go and version numbers
+	go_space := strings.NewReplacer("go", "go ")
+	
+	//replace go version with spaced go version
+	spaced_content:= go_space.Replace(go_version)
+	
+	//remove trailing minor semver
+	version_output  := regexp.MustCompile(`[.]\d$`).Split(spaced_content, -1)
 
-	go_template := strings.NewReplacer("go", "go ")
-
-	version_output := go_template.Replace(go_version)
-
-	return version_output
+	// return string of version_output which is a slice
+	return version_output[0]
 }
 
 // adapter for the write to file function
@@ -54,19 +60,6 @@ func GoModFileContent(projectName string) string {
 
 }
 
-// write files into the directories created
-
-// create
-
-// go mod files
-
-// test files
-
-// sample hello world file
-
-// package main file
-
-// folder package file
 
 // create project files
 func CreateProjectFiles(SubDirectories, fileName, file_contents string) {
@@ -100,12 +93,3 @@ func WriteProjectFiles(fileName, file_contents string) {
 	}
 }
 
-func Create_mod_file() {}
-
-func Create_test_files() {}
-
-func Create_main_project_file() {}
-
-// use to illustrate how packages
-// work in go lang
-func Create_folder_package() {}
