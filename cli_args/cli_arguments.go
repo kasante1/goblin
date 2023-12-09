@@ -30,7 +30,9 @@ func NewProjectDirectry(cli_argument string) {
 		fmt.Println(file_status)
 	}
 	// create main.go file
-	dir_contents.CreateProjectFiles(project_directory, "main.go", dir_contents.MainFileContents())
+	dir_contents.CreateProjectFiles(project_directory, "main.go", dir_contents.MainFileContents)
+	dir_contents.CreateProjectFiles(project_directory, "add_numbers.go", dir_contents.AddNumbersFileContents)
+	dir_contents.CreateProjectFiles(project_directory, "add_numbers_test.go", dir_contents.TestsFileContents)
 	
 	createModFileError := dir_contents.CreateModFile(cli_argument, project_directory)
 

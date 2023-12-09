@@ -11,18 +11,47 @@ import (
 // file contents
 //main file
 
-func MainFileContents() string {
-	var mainFileContents string = `package main
-
+var MainFileContents string = `package main
 import "fmt"
 
 func main(){
+
   fmt.Println("Hello world!")
+
+  result := AddNumbers(3, 4)
+
+  fmt.Println(result)
+}
+
+
+`
+
+
+
+var AddNumbersFileContents string = `
+package main
+
+func AddNumbers(x, y int) int {
+	return x + y
 }
 
 `
-	return mainFileContents
+
+var TestsFileContents string = `package main
+
+import "testing"
+	
+func TestAddNumbers(t *testing.T){
+	result := AddNumbers(2, 3)
+
+	if result != 5{
+		t.Error("incorrect results: expected 5 got ",result)
+	}
 }
+
+
+`
+
 
 
 // create go project mod file
