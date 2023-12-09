@@ -7,7 +7,9 @@ import (
 )
 
 func main() {
-	fmt.Println("Goblin!\n Usage: -bin|-lib <project_name>")
+	fmt.Println(
+	"goblin! -- create go project\nUsage: goblin <project_name>")
+
 	fmt.Println("")
 
 	if len(os.Args) == 1 {

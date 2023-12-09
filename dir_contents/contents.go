@@ -4,10 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
-	"runtime"
-	"strings"
-	"regexp"
 )
 
 // file contents
@@ -26,37 +24,22 @@ func main(){
 	return mainFileContents
 }
 
-// modify go version output
-// from go1.19.2 to go 1.19
-func modifyVersionOutput() string {
 
-	go_version := runtime.Version()
-	
-	//space between go and version numbers
-	go_space := strings.NewReplacer("go", "go ")
-	
-	//replace go version with spaced go version
-	spaced_content:= go_space.Replace(go_version)
-	
-	//remove trailing minor semver
-	version_output  := regexp.MustCompile(`[.]\d$`).Split(spaced_content, -1)
+// create go project mod file
+func CreateModFile(projectName, projectDirectory string) error{
 
-	// return string of version_output which is a slice
-	return version_output[0]
-}
+	cmd := exec.Command("go", "mod", "init", projectName)
 
-// adapter for the write to file function
-func GoModFileContent(projectName string) string {
+	cmd.Dir = projectDirectory
 
-	var go_version = modifyVersionOutput()
+	err := cmd.Run()
 
-	var templateGoModFile = "module name\n\nversion"
 
-	var replace_template = strings.NewReplacer("name", projectName, "version", string(go_version))
+	if err != nil {
+		return err
+	}
 
-	var GoModFileContent = replace_template.Replace(templateGoModFile)
-
-	return GoModFileContent
+	return nil
 
 }
 
@@ -73,9 +56,10 @@ func CreateProjectFiles(SubDirectories, fileName, file_contents string) {
 	if errors.Is(err, os.ErrNotExist) {
 		// write content to files
 		WriteProjectFiles(file_path, file_contents)
-		fmt.Println("[OK]", fileName, "created succesfully")
+		fmt.Println("[ OK ]", "create", fileName, "project success")
+		
 	} else {
-		fmt.Println("[X]", fileName, "failed. already exits!")
+		fmt.Println("[ X ]", "create", fileName, "project failed!")
 	}
 }
 

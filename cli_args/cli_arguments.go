@@ -31,7 +31,20 @@ func NewProjectDirectry(cli_argument string) {
 	}
 	// create main.go file
 	dir_contents.CreateProjectFiles(project_directory, "main.go", dir_contents.MainFileContents())
-	dir_contents.CreateProjectFiles(project_directory, "go.mod", dir_contents.GoModFileContent(cli_argument))
+	
+	createModFileError := dir_contents.CreateModFile(cli_argument, project_directory)
+
+	errorMessage := "create go mod file failed"
+
+	if createModFileError != nil {
+		fmt.Printf(
+			"[ X ] %s ", errorMessage)
+			return
+	}
+
+	successMessage := "[ OK ] create mod file success!"
+
+	fmt.Println(successMessage)
 }
 
 // is the provided cli_argument a string
@@ -91,7 +104,7 @@ func AlreadyExist(cli_argument string) error {
 
 	} else {
 
-		error_message := "[X] project [" + cli_argument + "] already exits!"
+		error_message := "[ X ] project [" + cli_argument + "] already exits!"
 
 		return errors.New(error_message)
 	}
@@ -101,9 +114,9 @@ func AlreadyExist(cli_argument string) error {
 func CreateProjectDirectory(cli_argument string) error {
 	err := os.Mkdir(cli_argument, os.ModePerm)
 	if err != nil {
-		return errors.New("[X] Failed! check directory permission")
+		return errors.New("[ X ] Failed! check directory permission")
 	}
 
-	fmt.Println("[OK] project created here :", cli_argument)
+	fmt.Println("[ OK ] project created here :", cli_argument)
 	return nil
 }
