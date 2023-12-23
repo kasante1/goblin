@@ -7,13 +7,19 @@ import (
 )
 
 func main() {
-	fmt.Println(
-	"goblin! -- create go project\nUsage: goblin <project_name>")
+	fmt.Println(`goblin! -- create a go project
 
-	fmt.Println("")
+Usage:
+  goblin <project_name>
+
+  cd project_name
+  go run project_name or go run .
+  go test -v
+  go build project_name`)
+
 
 	if len(os.Args) == 1 {
-		fmt.Println("[X] enter a project name.")
+		fmt.Println("\n[X] enter a project name.\n")
 		return
 	}
 
